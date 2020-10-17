@@ -1,6 +1,7 @@
-package com.felipe.springmongo1.resources;
+ package com.felipe.springmongo1.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.felipe.springmongo1.domain.User;
+import com.felipe.springmongo1.dto.UserDTO;
 import com.felipe.springmongo1.services.UserService;
 
 @RestController 
@@ -19,9 +21,16 @@ public class UserResource {
 	private UserService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserDTO>> findAll() {
+		// carrega a lista de usuários (ok)
+		// depois tem que converter essa lista de User para uma lista de UserDTO:
 		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list); 
+		// cria uma listDto que vai receber um stream da list e mapeia cada item x (lambda)  
+		// depois tem que transformar o resultado do map de volta em uma lista 
+		// com '.collect(Collector.toList())':
+		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		// retorna o listDto:
+		return ResponseEntity.ok().body(listDto); 
 		
 	}
 
