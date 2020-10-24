@@ -9,14 +9,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.felipe.springmongo1.services.exception.ObjectNotFoundException;
 
-@ControllerAdvice  // essa classe deve tratar possíveis erros nas requisições:
+@ControllerAdvice // essa classe deve tratar possíveis erros nas requisições:
 public class ResourceExceptionHandler {
-	
-	HttpStatus status = HttpStatus.NOT_FOUND;
+
 	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
-	 StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Não encontrado", e.getMessage(), request.getRequestURI());	
-return ResponseEntity.status(status).body(err);
+	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
+		
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Não encontrado",
+				e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
 	}
 
 }

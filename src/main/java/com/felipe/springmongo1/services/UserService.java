@@ -20,8 +20,13 @@ public class UserService {
 	}
 
 	public User findById(String id) {
-		Optional<User> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
+		Optional<User> user = repo.findById(id);
+		// se não existir usuário com o id passado acima, vai retornar nulo então precisa tratar:
+		if(user == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado!");
+			
+		}
+		return user.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
 
 	}
 
