@@ -14,6 +14,7 @@ public class UserDTO implements Serializable{
 	public UserDTO() {}
 	
 	//construtor para instanciar A PARTIR do obj Entity correspondente: (no caso User)
+	// o construtor pega um Usuário e instancia o DTO pra gente:
 	public UserDTO(User obj) {
 		id = obj.getId();
 		name = obj.getName();

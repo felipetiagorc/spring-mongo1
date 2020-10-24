@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.felipe.springmongo1.domain.User;
+import com.felipe.springmongo1.dto.UserDTO;
 import com.felipe.springmongo1.repository.UserRepository;
 import com.felipe.springmongo1.services.exception.ObjectNotFoundException;
 
@@ -29,5 +30,14 @@ public class UserService {
 		return user.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
 
 	}
-
+	// implementando método insert:
+	// como o repositório retorna um Objeto, foi mantido esse padrão também no serviço "User"
+	public User insert(User obj) {
+		return repo.insert(obj);
+	}
+	
+	// implementando o fromDTO:
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+	}
 }
