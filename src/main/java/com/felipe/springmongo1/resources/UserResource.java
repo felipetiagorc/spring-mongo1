@@ -51,6 +51,7 @@ public class UserResource {
 	
 	//  endpoint para inserir usuario:
 		@RequestMapping(method=RequestMethod.POST)
+		
 		// também podia ser apenas @PostMapping no lugar da linha de cima
 		
 		//aqui o método vai retornar um obj vazio: Void | @Request.. Insere um objDTO do tipo UserDTO
@@ -69,6 +70,17 @@ public class UserResource {
 		return ResponseEntity.created(uri).build();
 		
 	}
+		
+	//  endpoint para deletar usuario por id:
+		@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+		//A resposta do método vai ser vazia: '<Void>'
+		public ResponseEntity<Void> delete(@PathVariable String id) {
+			service.delete(id);
+			// resposta que não retorna nada usa: noContent()
+			return ResponseEntity.noContent().build();
+			
+		}
+		
 	
 
 } 

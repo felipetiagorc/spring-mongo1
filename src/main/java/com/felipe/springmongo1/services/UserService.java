@@ -36,6 +36,17 @@ public class UserService {
 		return repo.insert(obj);
 	}
 	
+	//Delete
+	
+	public void delete(String id) {
+		//pra aproveitar a excecção do findById, vamos fazer a busca primeiro, se não encontrar da o erro ja impl.:
+		findById(id);
+		repo.deleteById(id);
+	}
+	
+	
+	//parece q esse fromDTO não ta aqui nessa classe, no dele..
+	
 	// implementando o fromDTO:
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
