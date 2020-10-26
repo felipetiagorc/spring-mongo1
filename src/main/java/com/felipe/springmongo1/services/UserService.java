@@ -44,9 +44,31 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	/*
+	Ainda será preciso realizar mais uma correção no código para o Spring 2.x.x. 
+	Pois na verdade repo.findByid(obj.getId()) irá retornar um 'Optional<User>' 
+	e não um 'User'. Para extrair o 'User' do 'Optional<User>' chame a função 
+	'.get()' do próprio 'Optional<>'. 
+	*/
 	
-	//parece q esse fromDTO não ta aqui nessa classe, no dele..
 	
+	public User update(User obj) {
+	User newObj = repo.findById(obj.getId()).get();
+		//copia os dados novos 
+		updateData(newObj, obj); // clicar no updData e criar método:
+		return repo.save(newObj);
+		
+		
+		
+	}
+	
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+		
+		
+	}
+
 	// implementando o fromDTO:
 	public User fromDTO(UserDTO objDto) {
 		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
