@@ -1,5 +1,6 @@
 package com.felipe.springmongo1.repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,13 @@ public interface PostRepository extends MongoRepository<Post, String> {
 	
 	@Query("{ 'title': { $regex: ?0, $options: 'i'} }")
 	List<Post> pesquisaTitulo(String text);
+	
+	/* 
+	 * Criar método de consulta "fullSearch"
+	 * Buscar texto no titulo, no corpo, e nos comentários   
+	*/
+	@Query("{ $and: [{date: {$gte: ?1}}, {date: {$lte: ?2}},{$or:[{ 'title': { $regex: ?0, $options: 'i'} },{ 'body': { $regex: ?0, $options: 'i'} }, { 'comments.text': { $regex: ?0, $options: 'i'} }]}]}")
+	List<Post> fullSearch(String text, Date minDate, Date maxDate );
 	
 
 }
