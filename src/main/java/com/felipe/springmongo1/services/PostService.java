@@ -22,8 +22,15 @@ public class PostService {
 		return user.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
 		}
 	
-	// aqui pode ser o nome do método que quiser..
+//	// Com Query Methods | Aqui pode ser o nome do método que quiser.. 
+//	public List<Post> findByTitle(String text){
+//		return repo.findByTitleContainingIgnoreCase(text);
+//	}
+//	
+	
+	// Com @Query
+	// aqui pode ser o nome do método que quiser..2
 	public List<Post> findByTitle(String text){
-		return repo.findByTitleContainingIgnoreCase(text);
+		return repo.pesquisaTitulo(text);
 	}
 }
